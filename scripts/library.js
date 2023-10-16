@@ -26,6 +26,10 @@ function addBookToLibrary() {
     console.log(book);
   });
 }
+function createBookCard(Book) {
+  document.createElement(`article`);
+  
+} 
 
 // Listeners
 closeBookFormButton.addEventListener(`click`, (e) => {
