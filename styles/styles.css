@@ -120,6 +120,15 @@ footer {
   padding: 20px;
   font-size: 1.5rem;
   cursor: default;
+  gap: 10px;
+}
+.github-logo-link {
+  width: 40px;
+  fill: var(--primary-color);
+}
+
+.github-logo-link:hover {
+  fill: var(--primary-accent);
 }
 
 
