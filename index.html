@@ -18,8 +18,31 @@
     </header>
 
     <main>
-      <button type="button">+ Add Book</button>
+      <button type="button" class="add-book-button">+ Add Book</button>
     </main>
+
+    <dialog id="add-book-dialog">
+      <form method="dialog" id="add-book-form">
+        <p class="dialog-header">Enter Book Details<button type="reset" id="close-button">X</button></p>
+        <label for="book-title"> 
+          <input type="text" name="book-title" id="book-title" placeholder="Title" required>
+        </label>
+        <label for="book-author">
+          <input type="text" name="book-author" id="book-author" placeholder="Author" required>
+        </label>
+        <label for="book-pages">
+          <input type="number" name="book-pages" id="book-pages" placeholder="Pages" required>
+        </label>
+        <div class="read-container">
+          <p>Have You Read It?</p>
+          <label for="book-read"> 
+            <input type="checkbox" name="read" id="read">
+          </label>
+        </div>
+          <button class="form-submit-button" type="submit">Submit</button>
+        </div>
+      </form>
+    </dialog>
 
 
     <footer><p>Copyright &copy; 2023 Nolan Gajdascz <a href="https://github.com/Gajdascz">Github</a></p></footer>
