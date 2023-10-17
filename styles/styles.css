@@ -109,8 +109,8 @@ article.book-card {
   fill: var(--primary-accent);
 }
 .card-options-menu {
-  position: relative;
-  margin: -15px;;
+  position: absolute;
+  margin-top: 25px;
 }
 .card-options-menu-content {
   display: none;
@@ -180,7 +180,8 @@ dialog {
   border: 4px solid var(--secondary-accent);
   border-radius: 10px;
 }
-dialog#add-book-dialog[open] form{
+dialog#add-book-dialog[open] form,
+dialog#edit-book-dialog[open] form{
   height: 300px;
   padding: 20px;
   display: flex;
@@ -195,7 +196,8 @@ dialog#add-book-dialog[open] form{
   grid-template-columns: auto auto;
   gap: 10px;
 }
-#add-book-form > p {
+#add-book-form > p,
+#edit-book-form > p {
 text-align: center;
 font-size: 2rem;
 font-weight: bold;

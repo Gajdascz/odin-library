@@ -20,75 +20,6 @@
 
     <main>
       <section class="book-card-container">
-        <article class="book-card">
-          <div class="book-card-header">
-            <h3 class="book-card-title">A book on C</h3>
-            <button type="button" class="book-card-options-button">
-              <svg class="book-card-options-icon" viewBox="0 0 16 16">
-                <path
-                  d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z">
-                </path>
-              </svg>
-            </button>
-            <div class="card-options-menu">
-              <div class="card-options-menu-content">
-                <button class="edit-card-button">Edit</button>
-                <button class="delete-card-button">Delete</button>
-              </div>
-            </div>
-          </div>
-          <div class="book-card-information">
-            <p>by, Ira Pohl</p>
-            <p>700 pages</p>
-            <p>You have read this book.</p>
-          </div>
-        </article>
-        <article class="book-card">
-          <div class="book-card-header">
-            <h3 class="book-card-title">C book on A</h3>
-            <button type="button" class="book-card-options-button">
-              <svg class="book-card-options-icon" viewBox="0 0 16 16">
-                <path
-                  d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z">
-                </path>
-              </svg>
-            </button>
-            <div class="card-options-menu">
-              <div class="card-options-menu-content">
-                <button class="edit-card-button">Edit</button>
-                <button class="delete-card-button">Delete</button>
-              </div>
-            </div>
-          </div>
-          <div class="book-card-information">
-            <p>by, Ira Pohl</p>
-            <p>700 pages</p>
-            <p>You have read this book.</p>
-          </div>
-        </article>
-        <article class="book-card">
-          <div class="book-card-header">
-            <h3 class="book-card-title">The Bible</h3>
-            <button type="button" class="book-card-options-button">
-              <svg class="book-card-options-icon" viewBox="0 0 16 16">
-                <path
-                  d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z">
-                </path>
-              </svg>
-            </button>
-            <div class="card-options-menu">
-              <div class="card-options-menu-content">
-                <button class="edit-card-button">Edit</button>
-                <button class="delete-card-button">Delete</button>
-              </div>
-            </div>
-          </div>
-          <div class="book-card-information">
-            <p>by, Ira Pohl</p>
-            <p>700 pages</p>
-            <p>You have read this book.</p>
-          </div>
-        </article>
       </section>
     </main>
 
@@ -110,10 +41,32 @@
             <input type="checkbox" name="read" id="book-read">
           </label>
         </div>
-        <button class="form-submit-button" type="submit">Submit</button>
+        <button id="dialog-form-submit" class="form-submit-button" type="submit">Submit</button>
   </div>
   </form>
   </dialog>
+  <dialog id="edit-book-dialog">
+    <form method="dialog" id="edit-book-form">
+      <p class="dialog-header">Edit Book Details</p>
+      <label for="book-title">
+        <input type="text" name="book-title" id="book-title" placeholder="Title" required>
+      </label>
+      <label for="book-author">
+        <input type="text" name="book-author" id="book-author" placeholder="Author" required>
+      </label>
+      <label for="book-pages">
+        <input type="number" name="book-pages" id="book-pages" placeholder="Pages" required>
+      </label>
+      <div class="read-container">
+        <p>Have You Read It?</p>
+        <label for="book-read">
+          <input type="checkbox" name="read" id="book-read">
+        </label>
+      </div>
+      <button id="dialog-form-submit" class="form-submit-button" type="submit">Submit</button>
+</div>
+</form>
+</dialog>
 
 
   <footer>
