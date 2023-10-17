@@ -4,13 +4,35 @@ const addBookDialog = document.querySelector(`#add-book-dialog`);
 const addBookForm = document.querySelector(`#add-book-form`);
 const closeBookFormButton = document.querySelector(`#close-button`);
 const bookCardContainer = document.querySelector(`.book-card-container`);
+const cardEditButton = document.querySelectorAll(`.edit-card-button`);
+const cardDeleteButton = document.querySelectorAll(`.delete-card-button`);
+
+// Event bubbling to keep event listeners up to date with dynamically created DOM elements
+// Add eventlistener to container and check for class classList.containers(btton);
+
+bookCardContainer.addEventListener(`click`, (e) => {
+  if(e.target.classList.contains(`edit-card-button`)) {
+    let bookTitle = e.target.parentElement.parentElement.parentElement.querySelector(`.book-card-title`).textContent;
+    checkLibraryArray(bookTitle);
+  }
+  if(e.target.classList.contains(`delete-card-button`)) {
+    console.log(e.target);
+  }
+});
 
 
-
+function checkLibraryArray(bookTitle) {
+  myLibrary.forEach((Book, index) => {
+    if(Book.title === bookTitle) {
+      console.log(myLibrary[index]);
+      return myLibrary[index];
+    }
+    else { return false; }
+  });
+}
 
 // Variable Definitions
-const myLibrary = [];
-const sampleLibrary = []
+const myLibrary = [{"title": `A book on C`}, {"title": `The Bible`}];
 
 // Constructors
 function Book(title, author, pages, read, ) {
@@ -19,18 +41,16 @@ function Book(title, author, pages, read, ) {
   this.pages = pages;
   this.read = Boolean(read);
 }
-// Functions
-function addBookToLibrary() {
-  myLibrary.forEach(book => {
-    console.log(book);
+// Helper Functions
+const displayBooks = () => {
+  myLibrary.forEach(Book => {
+    createBookCard(Book);
   });
 }
 
 function setAttributes(element, attributes) {
   for(attribute in attributes) {
-    console.log(attribute);
     element.setAttribute(attribute, attributes[attribute]);
-    console.log(element);
   }
 }
 function createBookCard(Book) {
@@ -41,6 +61,10 @@ function createBookCard(Book) {
   const cardOptionsButton = document.createElement(`button`);
   const cardOptionsIconSvg = document.createElementNS(`http://www.w3.org/2000/svg`, `svg`);
   const cardOptionsIconPath = document.createElementNS(`http://www.w3.org/2000/svg`, `path`);
+  const cardOptionsMenuContainer = document.createElement(`div`);
+  const cardOptionsMenuContent = document.createElement(`div`);
+  const cardEditButton = document.createElement(`button`);
+  const cardDeleteButton = document.createElement(`button`);
   const cardInformationContainer = document.createElement(`div`);
   const cardAuthor = document.createElement(`p`);
   const cardPages = document.createElement(`p`);
@@ -48,8 +72,10 @@ function createBookCard(Book) {
 
   // Create DOM Structure
   articleElement.append(cardHeaderDiv, cardInformationContainer);
-  cardHeaderDiv.append(cardHeaderTitle, cardOptionsButton);
-  cardOptionsButton.append(cardOptionsIconSvg);
+  cardHeaderDiv.append(cardHeaderTitle, cardOptionsButton, cardOptionsMenuContainer);
+  cardOptionsMenuContainer.append(cardOptionsMenuContent);
+  cardOptionsMenuContent.append(cardEditButton, cardDeleteButton);
+  cardOptionsButton.append(cardOptionsIconSvg,);
   cardOptionsIconSvg.append(cardOptionsIconPath);
   cardInformationContainer.append(cardAuthor,cardPages,cardRead);
 
@@ -58,17 +84,22 @@ function createBookCard(Book) {
   cardHeaderDiv.setAttribute(`class`,  `book-card-header`);
   cardHeaderTitle.setAttribute(`class`, `book-card-title`);
   setAttributes(cardOptionsButton, {"type": "button", "class": `book-card-options-button`});
-  // cardOptionsButton.setAttribute(`type="button"`, `class="book-card-options-button"`);
-  // cardOptionsIconSvg.setAttribute(`class="book-card-options-icon"`, `viewBox="0 0 16 16"`, `xmlns="http://www.w3.org/2000/svg"`);
   setAttributes(cardOptionsIconSvg, {"class": "book-card-options-icon", "viewBox": "0 0 16 16"});
   cardOptionsIconPath.setAttribute(`d`, `M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z`);
+  cardOptionsMenuContainer.setAttribute(`class`, `card-options-menu`);
+  cardOptionsMenuContent.setAttribute(`class`,`card-options-menu-content`);
+  cardEditButton.setAttribute(`class`, `edit-card-button`);
+  cardDeleteButton.setAttribute(`class`, `delete-card-button`);
   cardInformationContainer.setAttribute(`class`, `book-card-information`);
+
+  // Add Text to Options Menu Buttons
+  cardEditButton.textContent = `Edit`;
+  cardDeleteButton.textContent = `Delete`;
 
   // Populate Card Information and Title
   cardHeaderTitle.textContent = Book.title;
   cardAuthor.textContent = `by, ${Book.author}`;
   cardPages.textContent = `${Book.pages} pages`;
-  console.log(Book.read);
   Book.read ? cardRead.textContent = `You have read this book.` : cardRead.textContent = `You haven't read this book.`;
   bookCardContainer.append(articleElement);
 } 
@@ -87,7 +118,9 @@ addBookDialog.addEventListener(`submit`, () => {
   let read = () => document.querySelector(`#book-read`).checked ? true : false;
   let newBook = new Book(title, author, pages, read());
   myLibrary.push(newBook);
-  createBookCard(newBook);
-  addBookToLibrary();
   addBookForm.reset();
+  displayBooks();
 });
+
+
+displayBooks();
