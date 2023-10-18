@@ -13,4 +13,3 @@ This menu has options that allow you to edit the information and/or delete the c
 
 # Created Using
 HTML, CSS - Flexbox/Grid, and JavaScript
-
