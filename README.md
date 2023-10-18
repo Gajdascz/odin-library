@@ -1,6 +1,6 @@
 # odin-library
 TOP: Library Project <br/>
-Live Preview: [https://gajdascz.github.io/odin-library/]
+Live Preview: https://gajdascz.github.io/odin-library/
 
 # Capabilties
 Keeps track of your book collection. Simply click the (+Add Book) button in the header
