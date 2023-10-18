@@ -1,5 +1,5 @@
 # odin-library
-TOP: Library Project <br/>
+TOP: Library <br/>
 Live Preview: https://gajdascz.github.io/odin-library/ <br>
 Project Page: [The Odin Project](https://www.theodinproject.com/lessons/node-path-javascript-library)
 
