@@ -12,5 +12,5 @@ Each displayed book card also has a hover drop-down menu indicated by three vert
 This menu has options that allow you to edit the information and/or delete the card.
 
 # Created Using
-HTML, CSS - Flexbox and Grid, and JavaScript
+HTML, CSS - Flexbox/Grid, and JavaScript
 
