@@ -1,3 +1,4 @@
+// displayController Module
 const displayController = (() => {
   // Main UI DOM Selectors
   const addBookButton = document.querySelector(`.add-book-button`);
@@ -94,17 +95,17 @@ const displayController = (() => {
     addBookForm.reset();
   });
   bookCardContainer.addEventListener(`click`, (e) => {
-    const bookTitle = e.target.closest(`.book-card-header`).querySelector(`h3.book-card-title`).textContent;
-    const currentBook = myLibrary.getBookByTitle(bookTitle);
-    if(currentBook) {
       if (e.target.classList.contains(`edit-card-button`)) {
+        const bookTitle = e.target.closest(`.book-card-header`).querySelector(`h3.book-card-title`).textContent;
+        const currentBook = myLibrary.getBookByTitle(bookTitle);
         editBookForm.setAttribute( 'data-book-title', currentBook.title);
         currentBook.openEditOptions();
       }
       if (e.target.classList.contains(`delete-card-button`)) {
+        const bookTitle = e.target.closest(`.book-card-header`).querySelector(`h3.book-card-title`).textContent;
+        const currentBook = myLibrary.getBookByTitle(bookTitle);
        myLibrary.removeBook(currentBook);
       }
-  } else alert(`Error: Book not found in library!`);
   });
 editBookDialog.addEventListener(`submit`, (e) => {
   const bookTitle = editBookForm.getAttribute(`data-book-title`);
@@ -113,7 +114,7 @@ editBookDialog.addEventListener(`submit`, (e) => {
     editBookForm.querySelector(`input#book-title`).value,
     editBookForm.querySelector(`input#book-author`).value,
     editBookForm.querySelector(`input#book-pages`).value,
-    editBookForm.querySelector(`input#book-read`).value
+    editBookForm.querySelector(`input#book-read`).checked ? true : false 
   );
   editBookForm.reset();
 });
@@ -130,15 +131,23 @@ editBookDialog.addEventListener(`submit`, (e) => {
     editBookForm.querySelector(`#book-title`).value = book.title;
     editBookForm.querySelector(`#book-author`).value = book.author;
     editBookForm.querySelector(`#book-pages`).value = book.pages;
-    book.read ? editBookDialog.querySelector(`#book-read`).checked = true : editBookDialog.querySelector(`#book-read`).checked = false;
+    if(book.read === true) {
+      editBookDialog.querySelector(`#book-read`).checked = true;
+    } else { 
+      editBookDialog.querySelector(`#book-read`).checked = false;
+    }
   }
 
   // Updates Books display card
   const updatedDisplayCard = (book) => {
     book.displayCard.querySelector(`.book-card-title`).textContent = book.title;
-    book.displayCard.querySelector(`.book-card-author`).textContent = book.author;
-    book.displayCard.querySelector(`.book-card-pages`).textContent = book.pages;
-    book.displayCard.querySelector(`.book-card-read`).textContent = book.read ? `You have read this book.` : `You haven't read this book.`;
+    book.displayCard.querySelector(`.book-card-author`).textContent = `by, ${book.author}`;
+    book.displayCard.querySelector(`.book-card-pages`).textContent = `${book.pages} pages`;
+    if(editBookForm.querySelector(`#book-read`).checked) {
+      book.displayCard.querySelector(`.book-card-read`).textContent = `You have read this book.`;
+    } else {
+      book.displayCard.querySelector(`.book-card-read`).textContent = `You haven't read this book.`;
+    }
   }
 
   return { createCardDisplayElement, 
@@ -149,6 +158,7 @@ editBookDialog.addEventListener(`submit`, (e) => {
          };
 })();
 
+// myLibrary Module
 const myLibrary = (() => {
   const books = [];
   const addBook = (book) => books.push(book);
@@ -161,7 +171,7 @@ const myLibrary = (() => {
     for(let i = 0; i < books.length; i++) {
       if(books[i].title === book.title) {
         books[i].deleteDisplayCard();
-        books.splice(i, 1, 0)
+        books.splice(i, 1)
       };
     }
   }
@@ -171,16 +181,18 @@ const myLibrary = (() => {
     }
     return false;
   }
-  return {addBook, displayBooks, removeBook, getBookByTitle}
+  const getBooks = () => books;
+  return {addBook, displayBooks, removeBook, getBookByTitle, getBooks}
 })();
 
+// Book class definition
 class Book {
   displayCard;
   constructor(title,author,pages,read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read = Boolean(read);
+    this.read = read;
   }
   createBookDisplayCard() {
     this.displayCard = displayController.createCardDisplayElement(this);
@@ -195,7 +207,7 @@ class Book {
     this.title  = title;
     this.author = author;
     this.pages  = pages;
-    this.read = Boolean(read);
+    this.read = read;
     displayController.updatedDisplayCard(this);
   }
 }
